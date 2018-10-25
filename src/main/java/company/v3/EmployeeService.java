@@ -12,11 +12,11 @@ final class EmployeeService {
 
     public void giveRise(String employeeId, BigDecimal percents) {
         Employee employee = repository.getById(employeeId);
-        employee.setSalary(calculateSalaryAfterTheRise(percents, employee));
+        employee.setSalary(calculateSalaryAfterTheRise(percents, employee.getSalary()));
         repository.update(employee);
     }
 
-    private BigDecimal calculateSalaryAfterTheRise(final BigDecimal percents, final Employee employee) {
-        return employee.getSalary().multiply(percents.add(BigDecimal.valueOf(100))).divide(BigDecimal.valueOf(100));
+    private BigDecimal calculateSalaryAfterTheRise(final BigDecimal percents, final BigDecimal initialSalary) {
+        return initialSalary.multiply(percents.add(BigDecimal.valueOf(100))).divide(BigDecimal.valueOf(100));
     }
 }
